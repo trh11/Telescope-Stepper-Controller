@@ -28,10 +28,21 @@ void loop()
     int m0 = bitRead(set, 0);               //reads bit0 for M0
     if (slew == 1)
     {
-      Serial.print(count);
-      Serial.flush();
-      delay(10);
-      break;
+      int max = 1;
+      for (int n = 0; n <= max-1; n++)
+      {
+        max++;
+        if (Serial.available() > 0)
+        {
+          int check = Serial.read();
+          if (check == 32)
+            break;
+        }
+        digitalWrite(stepPin, HIGH);          //writes STEPS logic high 
+        delay(500/freq);                      //holds high for one half period = (1 second)/(2 freq)
+        digitalWrite(stepPin, LOW);           //writes STEPS logic low
+        delay(500/freq);                      //holds low for one half period = (1 second)/(2 freq) 
+      }
     }
     if (halt == 1)                          //if the HALT flag is up prevents stop button misuse
     {
@@ -82,7 +93,8 @@ void loop()
     {
       digitalWrite(m0Pin,LOW);              //writes M0 low
     }
-    for (int n = 0; n <= steps-1; n++) {    //initiates loop for "steps" number of periods
+    for (int n = 0; n <= steps-1; n++)     //initiates loop for "steps" number of periods
+    {
       if (Serial.available() > 0)           //if any activity     
       {
         int check = Serial.read();

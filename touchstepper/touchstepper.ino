@@ -56,16 +56,13 @@ void loop()
         int check = Serial.read();          //looks for any button presses after parsing signal
         if (check >= 127)                   //if halt flag is up 
         {
-<<<<<<< HEAD
           Serial.print(0);
-=======
           Serial.write(0);
->>>>>>> 2b7846f22d7c48e2c4701fdf62a0ff80ac985a59
           Serial.flush();                   //flushes the serial buffer. 
           delay(1500);                      //delays 1.5 seconds to prevent serial confusion from rapid button presses         
           break;                            //resumes looking for a SEND signal
         }
-        if (check = 64)
+        if (check == 64)
         {
           Serial.print(count);
           Serial.flush();
@@ -102,19 +99,16 @@ void loop()
       if (Serial.available() > 0)           //if any activity     
       {
         int check = Serial.read();
-<<<<<<< HEAD
         if (check = 128)    
         {
           Serial.print(n);                           
           Serial.flush();                    //delays .1 seconds to prevent serial confusion from rapid button presses          
           delay(1000);
-=======
         if (check >= 127)    
         {
           Serial.print(n); 
           delay(2000);                       //delays .1 seconds to prevent serial confusion from rapid button presses          
-          //Serial.flush();
->>>>>>> 2b7846f22d7c48e2c4701fdf62a0ff80ac985a59
+          Serial.flush();
           break;                            //resumes looking for a SEND signal
         }
         else
@@ -131,6 +125,7 @@ void loop()
         Serial.flush();
         delay(100);
         Serial.print(n + 1);
+      }
       }
     }
   }
